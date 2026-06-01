@@ -15,16 +15,9 @@
     --gris-fond: #F4F6FA;
   }
   * { -webkit-font-smoothing: antialiased; box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; }
-  body {
-    font-family: 'Manrope', system-ui, sans-serif;
-    background: var(--gris-fond);
-    display: flex;
-    flex-direction: column;
-  }
+  body { font-family: 'Manrope', system-ui, sans-serif; background: var(--gris-fond); }
   .display { font-family: 'Plus Jakarta Sans', sans-serif; }
 
-  /* Logo pin */
   .logo-pin {
     width: 36px; height: 36px;
     background: var(--bleu);
@@ -34,183 +27,523 @@
     flex-shrink: 0;
   }
   .logo-pin::after {
-    content: '+';
-    color: var(--teal); font-weight: 900;
-    transform: rotate(45deg); font-size: 17px;
+    content: '+'; color: var(--teal);
+    font-weight: 900; transform: rotate(45deg); font-size: 17px;
   }
 
-  /* Buttons */
-  .btn-bleu {
-    display: inline-flex; align-items: center; gap: .5rem;
-    padding: .7rem 1.5rem;
-    background: var(--bleu); color: white;
-    font-weight: 700; font-size: .875rem;
-    border-radius: 10px; text-decoration: none; border: none; cursor: pointer;
-    transition: all .25s;
-    box-shadow: 0 4px 14px rgba(43,63,122,.25);
+  /* ── HEADER ── */
+  .site-header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,.96); backdrop-filter: blur(12px);
+    border-bottom: 1px solid #E5E7EB;
+    box-shadow: 0 2px 8px rgba(43,63,122,.06);
+    padding: .75rem 5%;
+    display: flex; align-items: center; justify-content: space-between;
   }
-  .btn-bleu:hover { background: var(--bleu-clair); transform: translateY(-1px); }
 
   .btn-teal {
-    display: inline-flex; align-items: center; gap: .5rem;
-    padding: .7rem 1.5rem;
+    display: inline-flex; align-items: center; gap: .45rem;
+    padding: .6rem 1.3rem;
     background: var(--teal); color: white;
-    font-weight: 700; font-size: .875rem;
-    border-radius: 10px; text-decoration: none; border: none; cursor: pointer;
-    transition: all .25s;
-    box-shadow: 0 4px 14px rgba(43,168,154,.25);
+    font-weight: 700; font-size: .82rem;
+    border-radius: 10px; text-decoration: none;
+    box-shadow: 0 3px 10px rgba(43,168,154,.3);
+    transition: all .2s;
   }
   .btn-teal:hover { background: var(--teal-fonce); transform: translateY(-1px); }
 
   .btn-outline {
-    display: inline-flex; align-items: center; gap: .5rem;
-    padding: .7rem 1.5rem;
+    display: inline-flex; align-items: center; gap: .45rem;
+    padding: .6rem 1.3rem;
     background: transparent; color: var(--bleu);
-    font-weight: 700; font-size: .875rem;
+    font-weight: 700; font-size: .82rem;
     border-radius: 10px; text-decoration: none;
-    border: 2px solid #CBD5E1; cursor: pointer;
-    transition: all .25s;
+    border: 2px solid #CBD5E1;
+    transition: all .2s;
   }
-  .btn-outline:hover { border-color: var(--bleu); background: rgba(43,63,122,.05); }
+  .btn-outline:hover { border-color: var(--bleu); background: rgba(43,63,122,.04); }
 
-  /* PDF frame */
-  .pdf-wrapper {
-    flex: 1;
-    background: white;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 24px rgba(43,63,122,.1);
-    border: 1.5px solid #E2E8F0;
-    min-height: 0;
+  /* ── HERO BANNER ── */
+  .cv-hero {
+    background: linear-gradient(135deg, var(--bleu) 0%, #1A2447 60%, var(--teal-fonce) 100%);
+    padding: 3rem 5%;
+    position: relative; overflow: hidden;
   }
-  .pdf-wrapper iframe {
-    width: 100%; height: 100%; border: none; display: block;
+  .cv-hero::before {
+    content: ''; position: absolute;
+    width: 400px; height: 400px;
+    background: rgba(43,168,154,.12);
+    border-radius: 50%; filter: blur(60px);
+    top: -100px; right: -80px;
+  }
+  .cv-hero::after {
+    content: ''; position: absolute;
+    width: 300px; height: 300px;
+    background: rgba(59,82,153,.15);
+    border-radius: 50%; filter: blur(50px);
+    bottom: -80px; left: -60px;
   }
 
-  /* Fallback */
-  .pdf-fallback {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    gap: 1rem;
-    padding: 2rem;
-    text-align: center;
+  /* ── CV BODY ── */
+  .cv-container {
+    max-width: 960px; margin: 2.5rem auto;
+    padding: 0 5% 4rem;
+    display: grid; grid-template-columns: 280px 1fr; gap: 2rem;
   }
+
+  /* Sidebar */
+  .cv-sidebar {
+    display: flex; flex-direction: column; gap: 1.5rem;
+  }
+  .cv-block {
+    background: white; border-radius: 16px; padding: 1.5rem;
+    border: 1.5px solid #E5E7EB;
+    box-shadow: 0 1px 4px rgba(0,0,0,.05);
+  }
+  .block-title {
+    font-size: .65rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: .1em;
+    color: var(--teal); margin-bottom: 1rem;
+    padding-bottom: .5rem;
+    border-bottom: 2px solid rgba(43,168,154,.15);
+  }
+
+  /* Contact items */
+  .contact-item {
+    display: flex; align-items: center; gap: .65rem;
+    font-size: .82rem; color: #4A5568; margin-bottom: .65rem;
+    line-height: 1.4;
+  }
+  .contact-item:last-child { margin-bottom: 0; }
+  .contact-icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: rgba(43,63,122,.08);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: .85rem;
+  }
+
+  /* Skill tags */
+  .skill-tag {
+    display: inline-block;
+    padding: .22rem .65rem;
+    background: var(--gris-fond); border: 1.5px solid #E2E8F0;
+    border-radius: 999px; font-size: .72rem; font-weight: 600; color: #475569;
+    margin: .2rem .2rem .2rem 0;
+    transition: all .2s;
+  }
+  .skill-tag:hover { background: rgba(43,168,154,.08); border-color: var(--teal); color: var(--teal-fonce); }
+
+  /* Language bar */
+  .lang-bar {
+    height: 5px; border-radius: 999px;
+    background: #E2E8F0; margin-top: .35rem; overflow: hidden;
+  }
+  .lang-fill {
+    height: 100%; border-radius: 999px;
+    background: linear-gradient(90deg, var(--bleu), var(--teal));
+  }
+
+  /* Main content */
+  .cv-main { display: flex; flex-direction: column; gap: 1.75rem; }
+
+  .section-label {
+    font-size: .65rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: .1em;
+    color: var(--teal); margin-bottom: 1.1rem;
+    padding-bottom: .5rem;
+    border-bottom: 2px solid rgba(43,168,154,.15);
+  }
+
+  /* Experience card */
+  .exp-card {
+    background: white; border-radius: 14px; padding: 1.4rem;
+    border: 1.5px solid #E5E7EB;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    margin-bottom: 1rem; position: relative;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .exp-card:last-child { margin-bottom: 0; }
+  .exp-card:hover { box-shadow: 0 6px 20px rgba(43,63,122,.08); border-color: #CBD5E1; }
+  .exp-card::before {
+    content: ''; position: absolute;
+    left: 0; top: 16px; bottom: 16px; width: 3px;
+    background: linear-gradient(to bottom, var(--bleu), var(--teal));
+    border-radius: 0 3px 3px 0;
+  }
+
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: .6rem; }
+  .exp-title { font-size: .95rem; font-weight: 800; color: var(--bleu); line-height: 1.3; }
+  .exp-company { font-size: .82rem; font-weight: 600; color: var(--teal-fonce); margin-top: .15rem; }
+  .exp-date {
+    font-size: .7rem; font-weight: 700;
+    color: white; background: var(--bleu);
+    padding: .2rem .65rem; border-radius: 999px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .exp-points { margin-top: .75rem; padding-left: 0; list-style: none; }
+  .exp-points li {
+    font-size: .82rem; color: #4A5568; line-height: 1.65;
+    padding-left: 1.1rem; position: relative; margin-bottom: .3rem;
+  }
+  .exp-points li::before {
+    content: ''; position: absolute; left: 0; top: .52rem;
+    width: 5px; height: 5px;
+    background: var(--teal); border-radius: 50%;
+  }
+
+  /* Formation card */
+  .edu-card {
+    background: white; border-radius: 14px; padding: 1.2rem 1.4rem;
+    border: 1.5px solid #E5E7EB; margin-bottom: 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    display: flex; gap: 1rem; align-items: flex-start;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .edu-card:last-child { margin-bottom: 0; }
+  .edu-card:hover { box-shadow: 0 6px 20px rgba(43,63,122,.08); border-color: #CBD5E1; }
+  .edu-icon {
+    width: 42px; height: 42px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .edu-title { font-size: .9rem; font-weight: 800; color: var(--bleu); margin-bottom: .2rem; }
+  .edu-school { font-size: .8rem; font-weight: 600; color: var(--teal-fonce); }
+  .edu-date { font-size: .72rem; color: #888; margin-top: .2rem; }
+
+  /* Profil résumé */
+  .profil-card {
+    background: white; border-radius: 16px; padding: 1.5rem;
+    border: 1.5px solid #E5E7EB;
+    box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    font-size: .87rem; color: #4A5568; line-height: 1.75;
+  }
+  .profil-card strong { color: var(--bleu); }
 
   @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from { opacity:0; transform:translateY(20px); }
+    to   { opacity:1; transform:translateY(0); }
   }
-  .fade-in-up { animation: fadeInUp .6s ease-out both; }
+  .fade-in-up { animation: fadeInUp .5s ease-out both; }
+
+  /* Soft skills */
+  .soft-skill {
+    display: flex; align-items: center; gap: .6rem;
+    font-size: .8rem; color: #4A5568; margin-bottom: .5rem;
+  }
+  .soft-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--teal); flex-shrink: 0;
+  }
+
+  @media (max-width: 700px) {
+    .cv-container { grid-template-columns: 1fr; }
+    .cv-hero { padding: 2rem 6%; }
+  }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="bg-white border-b sticky top-0 z-40" style="border-color:#E5E7EB; box-shadow:0 2px 8px rgba(43,63,122,.06);">
-  <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
-    <!-- Logo + titre -->
-    <a href="index.html" class="flex items-center gap-3 no-underline">
-      <div class="logo-pin"></div>
-      <div>
-        <div class="display font-extrabold text-lg" style="color:var(--bleu)">
-          Armand<span style="color:var(--teal)"> Chuigwa</span>
-        </div>
-        <div class="text-xs font-semibold" style="color:#888;">Curriculum Vitae</div>
+<!-- ── HEADER ── -->
+<header class="site-header">
+  <a href="index.html" class="flex items-center gap-3 no-underline">
+    <div class="logo-pin"></div>
+    <div>
+      <div class="display font-extrabold text-lg" style="color:var(--bleu)">
+        Armand<span style="color:var(--teal)"> Chuigwa</span>
       </div>
-    </a>
-
-    <!-- Actions -->
-    <div class="flex items-center gap-3">
-      <a href="index.html" class="btn-outline" style="padding:.55rem 1.2rem; font-size:.8rem;">
-        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-        </svg>
-        Retour au portfolio
-      </a>
-      <a href="CV_Armand_Chuigwa.pdf" download="CV_Armand_Chuigwa.pdf" class="btn-teal" style="padding:.55rem 1.2rem; font-size:.8rem;">
-        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-        </svg>
-        Télécharger le CV
-      </a>
+      <div class="text-xs font-semibold" style="color:#888;">Curriculum Vitae</div>
     </div>
+  </a>
+  <div class="flex gap-3">
+    <a href="index.html" class="btn-outline">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      Portfolio
+    </a>
+    <a href="CV_Armand_Chuigwa.pdf" download="CV_Armand_Chuigwa.pdf" class="btn-teal">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+      Télécharger le CV
+    </a>
   </div>
 </header>
 
-<!-- MAIN -->
-<main class="flex-1 flex flex-col max-w-6xl mx-auto w-full px-6 py-6 gap-5" style="min-height:0;">
-
-  <!-- Info bar -->
-  <div class="flex items-center justify-between fade-in-up" style="animation-delay:.05s;">
+<!-- ── HERO BANNER ── -->
+<div class="cv-hero fade-in-up" style="animation-delay:.05s;">
+  <div style="max-width:960px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; gap:2rem; position:relative; z-index:1;">
     <div>
-      <h1 class="display font-extrabold text-2xl" style="color:var(--bleu);">CV — Armand Chuigwa</h1>
-      <p class="text-sm mt-0.5" style="color:#888;">
-        Administrateur Infrastructures Sécurisées · RNCP39611 Niveau 6 · IMIE Paris 2026
+      <!-- ✏️ MODIFIER : nom et titre -->
+      <h1 class="display font-extrabold" style="font-size:clamp(2rem,5vw,3.5rem); color:white; letter-spacing:-.03em; line-height:1.1;">
+        Armand <span style="color:#5EEAD4;">Chuigwa</span>
+      </h1>
+      <!-- ✏️ MODIFIER : sous-titre / poste recherché -->
+      <p class="display font-bold mt-2" style="color:rgba(255,255,255,.8); font-size:clamp(.9rem,2vw,1.15rem);">
+        Administrateur Infrastructures Sécurisées — Bachelor ASRC 3e année
+      </p>
+      <p style="color:rgba(255,255,255,.55); font-size:.85rem; margin-top:.5rem;">
+        Recherche alternance · Rythme : 3 sem. entreprise / 1 sem. formation · Disponible immédiatement
       </p>
     </div>
-    <div class="flex items-center gap-2 px-4 py-2 rounded-xl" style="background:rgba(43,168,154,.08); border:1.5px solid rgba(43,168,154,.2);">
-      <span class="inline-block w-2 h-2 rounded-full" style="background:var(--teal);"></span>
-      <span class="text-sm font-700" style="color:var(--teal-fonce);">Disponible — Sept. 2026</span>
+    <div class="flex items-center gap-2 px-5 py-3 rounded-2xl" style="background:rgba(255,255,255,.1); border:1.5px solid rgba(255,255,255,.2); flex-shrink:0; white-space:nowrap;">
+      <span class="inline-block w-2 h-2 rounded-full" style="background:#5EEAD4;"></span>
+      <span class="font-700 text-sm" style="color:#5EEAD4;">Disponible — Sept. 2026</span>
     </div>
   </div>
+</div>
 
-  <!-- PDF Viewer -->
-  <div class="pdf-wrapper fade-in-up" style="animation-delay:.15s; flex:1; min-height:600px;">
-    <iframe
-      src="CV_Armand_Chuigwa.pdf"
-      title="CV Armand Chuigwa"
-      id="pdfFrame"
-    ></iframe>
-    <!-- Fallback si iframe bloquée -->
-    <div class="pdf-fallback" id="pdfFallback">
-      <svg width="64" height="64" fill="none" viewBox="0 0 24 24" stroke="#CBD5E1" stroke-width="1.5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-      </svg>
-      <p class="text-base font-600" style="color:#64748B;">Impossible d'afficher le PDF dans ce navigateur.</p>
-      <p class="text-sm" style="color:#94A3B8;">Téléchargez-le directement pour le consulter.</p>
-      <a href="CV_Armand_Chuigwa.pdf" download="CV_Armand_Chuigwa.pdf" class="btn-teal mt-2">
-        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-        </svg>
-        Télécharger le CV
-      </a>
+<!-- ── CORPS DU CV ── -->
+<div class="cv-container">
+
+  <!-- ════ COLONNE GAUCHE ════ -->
+  <aside class="cv-sidebar fade-in-up" style="animation-delay:.15s;">
+
+    <!-- COORDONNÉES -->
+    <!-- ✏️ MODIFIER : informations de contact -->
+    <div class="cv-block">
+      <div class="block-title">Coordonnées</div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <a href="mailto:armand.chuigwa@hotmail.fr" style="color:#2B3F7A; text-decoration:none; font-weight:600; font-size:.8rem;">armand.chuigwa@hotmail.fr</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <span>Colombes (92700)</span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📱</div>
+        <span>+33 6 72 23 95 12</span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🚗</div>
+        <span>Permis B · Permis A</span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <span>Mobile : Toute la France</span>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">💼</div>
+        <a href="https://linkedin.com/in/carmand237" target="_blank" style="color:#2B3F7A; text-decoration:none; font-weight:600; font-size:.8rem;">linkedin.com/in/carmand237</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🐙</div>
+        <a href="https://github.com/Carmand237" target="_blank" style="color:#2B3F7A; text-decoration:none; font-weight:600; font-size:.8rem;">github.com/Carmand237</a>
+      </div>
     </div>
-  </div>
 
-</main>
+    <!-- COMPÉTENCES RÉSEAUX & SÉCURITÉ -->
+    <!-- ✏️ MODIFIER : ajouter/supprimer des compétences -->
+    <div class="cv-block">
+      <div class="block-title">Réseaux & Sécurité</div>
+      <span class="skill-tag">IAM / Active Directory</span>
+      <span class="skill-tag">GPO / RBAC</span>
+      <span class="skill-tag">Analyse des risques</span>
+      <span class="skill-tag">Supervision Zabbix</span>
+      <span class="skill-tag">Gestion vulnérabilités</span>
+      <span class="skill-tag">Documentation SSI</span>
+      <span class="skill-tag">Sensibilisation cyber</span>
+      <span class="skill-tag">pfSense</span>
+      <span class="skill-tag">ISO 27001</span>
+      <span class="skill-tag">EBIOS RM</span>
+      <span class="skill-tag">NIST CSF</span>
+      <span class="skill-tag">VPN IPSec</span>
+      <span class="skill-tag">IDS/IPS Snort</span>
+    </div>
+
+    <!-- SYSTÈMES & VIRTUALISATION -->
+    <div class="cv-block">
+      <div class="block-title">Systèmes & Virtualisation</div>
+      <span class="skill-tag">Windows Server 2016→2025</span>
+      <span class="skill-tag">Linux Debian/Ubuntu/Kali</span>
+      <span class="skill-tag">VMware vSphere</span>
+      <span class="skill-tag">ESXi / Workstation</span>
+      <span class="skill-tag">GLPI / FusionInventory</span>
+      <span class="skill-tag">PowerShell</span>
+      <span class="skill-tag">Bash</span>
+      <span class="skill-tag">Python</span>
+      <span class="skill-tag">Ansible</span>
+      <span class="skill-tag">Wazuh / ELK</span>
+    </div>
+
+    <!-- BUREAUTIQUE -->
+    <div class="cv-block">
+      <div class="block-title">Applications Bureautiques</div>
+      <span class="skill-tag">Microsoft Office 365</span>
+    </div>
+
+    <!-- SOFT SKILLS -->
+    <!-- ✏️ MODIFIER : soft skills -->
+    <div class="cv-block">
+      <div class="block-title">Soft Skills</div>
+      <div class="soft-skill"><div class="soft-dot"></div>Ponctuel, ouvert aux échanges</div>
+      <div class="soft-skill"><div class="soft-dot"></div>Apprentissage rapide</div>
+      <div class="soft-skill"><div class="soft-dot"></div>Capacité d'analyse & adaptabilité</div>
+      <div class="soft-skill"><div class="soft-dot"></div>Polyvalence & esprit d'équipe</div>
+      <div class="soft-skill"><div class="soft-dot"></div>Rigueur, autonomie & proactivité</div>
+    </div>
+
+    <!-- LANGUES -->
+    <!-- ✏️ MODIFIER : langues -->
+    <div class="cv-block">
+      <div class="block-title">Langues</div>
+      <div style="margin-bottom:1rem;">
+        <div class="flex justify-between" style="font-size:.82rem; font-weight:700; color:#333;">
+          <span>Français</span><span style="color:var(--teal); font-size:.72rem;">Maternelle</span>
+        </div>
+        <div class="lang-bar"><div class="lang-fill" style="width:100%;"></div></div>
+      </div>
+      <div>
+        <div class="flex justify-between" style="font-size:.82rem; font-weight:700; color:#333;">
+          <span>Anglais</span><span style="color:var(--bleu-clair); font-size:.72rem;">Lu et écrit</span>
+        </div>
+        <div class="lang-bar"><div class="lang-fill" style="width:60%;"></div></div>
+      </div>
+    </div>
+
+    <!-- CENTRES D'INTÉRÊT -->
+    <!-- ✏️ MODIFIER : centres d'intérêt -->
+    <div class="cv-block">
+      <div class="block-title">Centres d'intérêt</div>
+      <span class="skill-tag">⚙️ Veille technologique</span>
+      <span class="skill-tag">🔨 Bricolage</span>
+      <span class="skill-tag">🌍 Voyages</span>
+    </div>
+
+  </aside>
+
+  <!-- ════ COLONNE DROITE ════ -->
+  <main class="cv-main fade-in-up" style="animation-delay:.25s;">
+
+    <!-- PROFIL -->
+    <!-- ✏️ MODIFIER : texte de présentation -->
+    <section>
+      <div class="section-label">Profil</div>
+      <div class="profil-card">
+        Étudiant en cybersécurité des systèmes d'information avec une <strong>solide expérience en administration systèmes et réseaux</strong> et en sécurisation des infrastructures. Compétent en <strong>Active Directory, Linux, segmentation réseau, firewall pfSense, supervision et hardening</strong> des environnements. Je souhaite contribuer à la sécurisation et à l'exploitation d'infrastructures critiques.
+      </div>
+    </section>
+
+    <!-- EXPÉRIENCES PROFESSIONNELLES -->
+    <section>
+      <div class="section-label">Expériences professionnelles</div>
+
+      <!-- ✏️ MODIFIER : expérience 1 -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Consultant en Infrastructures IT (CDD)</div>
+            <div class="exp-company">I-Engineering Group</div>
+          </div>
+          <div class="exp-date">Déc. 2023 – Juil. 2025</div>
+        </div>
+        <ul class="exp-points">
+          <li><strong>Gouvernance AD DS :</strong> Architecture d'annuaire pour 50+ utilisateurs avec structuration des OU et gestion du cycle de vie des identités.</li>
+          <li><strong>Sécurité & GPO :</strong> Déploiement de stratégies de groupe pour le durcissement et la gestion des accès via modèle RBAC.</li>
+        </ul>
+      </div>
+
+      <!-- ✏️ MODIFIER : expérience 2 -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Responsable Systèmes et Réseaux (CDI)</div>
+            <div class="exp-company">CAMTECH</div>
+          </div>
+          <div class="exp-date">Fév. 2021 – Nov. 2023</div>
+        </div>
+        <ul class="exp-points">
+          <li><strong>Déploiement Multi-sites :</strong> Pilotage de 3 sites critiques interconnectés via liaisons sans fil point-à-point (Ubiquiti) avec une équipe de 3 personnes.</li>
+          <li>Configuration des répéteurs Ubiquiti Nano Station M5.</li>
+          <li><strong>Supervision :</strong> Monitoring proactif des ponts radio et des flux réseaux pour assurer la continuité de service.</li>
+        </ul>
+      </div>
+
+      <!-- ✏️ MODIFIER : expérience 3 -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div>
+            <div class="exp-title">Responsable Technique Infrastructures (CDI)</div>
+            <div class="exp-company">RESOTECH SARL</div>
+          </div>
+          <div class="exp-date">Mai 2015 – 2020</div>
+        </div>
+        <ul class="exp-points">
+          <li>Administration des serveurs Windows/Linux et gestion des environnements virtualisés.</li>
+          <li>Mise en place de solutions de supervision (Zabbix) et continuité de service.</li>
+          <li>Déploiement et administration de la plateforme GLPI couplée à FusionInventory pour l'inventaire automatisé du parc et la gestion des tickets incidents.</li>
+        </ul>
+      </div>
+
+      <!-- ✏️ AJOUTER une nouvelle expérience en copiant le bloc exp-card ci-dessus -->
+
+    </section>
+
+    <!-- DIPLÔMES ET FORMATIONS -->
+    <section>
+      <div class="section-label">Diplômes et Formations</div>
+
+      <!-- ✏️ MODIFIER : formation 1 -->
+      <div class="edu-card">
+        <div class="edu-icon" style="background:linear-gradient(135deg,rgba(43,63,122,.1),rgba(43,168,154,.1));">🎓</div>
+        <div>
+          <div class="edu-title">Mastère en Cybersécurité — Titre RNCP Niveau 7</div>
+          <div class="edu-school">IMIE Paris</div>
+          <div class="edu-date">Sept. 2026 – Sept. 2028</div>
+        </div>
+        <div class="ml-auto flex-shrink-0">
+          <span style="background:rgba(43,168,154,.1); color:var(--teal-fonce); font-size:.68rem; font-weight:700; padding:.2rem .7rem; border-radius:999px; white-space:nowrap;">Objectif</span>
+        </div>
+      </div>
+
+      <!-- ✏️ MODIFIER : formation 2 -->
+      <div class="edu-card">
+        <div class="edu-icon" style="background:linear-gradient(135deg,rgba(43,63,122,.1),rgba(43,168,154,.1));">🛡️</div>
+        <div>
+          <div class="edu-title">Bachelor Admin. Infrastructures Sécurisées — RNCP39611 Niv.6</div>
+          <div class="edu-school">IMIE Paris</div>
+          <div class="edu-date">Depuis sept. 2025</div>
+          <div style="font-size:.75rem; color:#888; margin-top:.3rem;">Sécurisation systèmes · Audit vulnérabilités · pfSense · AD · Zabbix · Linux</div>
+        </div>
+        <div class="ml-auto flex-shrink-0">
+          <span style="background:rgba(43,63,122,.1); color:var(--bleu); font-size:.68rem; font-weight:700; padding:.2rem .7rem; border-radius:999px; white-space:nowrap;">En cours</span>
+        </div>
+      </div>
+
+      <!-- ✏️ MODIFIER : formation 3 -->
+      <div class="edu-card">
+        <div class="edu-icon" style="background:rgba(100,116,139,.08);">📡</div>
+        <div>
+          <div class="edu-title">Licence Professionnelle en Réseaux et Télécommunication</div>
+          <div class="edu-school">ENSET — École Normale Supérieure de l'Enseignement Technique</div>
+          <div class="edu-date">2014 – 2015</div>
+        </div>
+      </div>
+
+      <!-- ✏️ MODIFIER : formation 4 -->
+      <div class="edu-card">
+        <div class="edu-icon" style="background:rgba(100,116,139,.08);">📡</div>
+        <div>
+          <div class="edu-title">DSEP — Diplôme Supérieur d'Étude Professionnelle en Réseaux & Télécoms</div>
+          <div class="edu-school">Institut Universitaire de la Côte (IUC)</div>
+          <div class="edu-date">Août 2010 – Mai 2012</div>
+        </div>
+      </div>
+
+      <!-- ✏️ AJOUTER une formation en copiant le bloc edu-card ci-dessus -->
+
+    </section>
+
+  </main>
+
+</div>
 
 <!-- FOOTER -->
-<footer class="py-4 px-6 text-center text-sm" style="color:#94A3B8; border-top:1px solid #E2E8F0; background:white;">
-  © 2026 Armand Chuigwa ·
-  <a href="mailto:armand.chuigwa@hotmail.fr" class="no-underline font-600" style="color:var(--teal);">armand.chuigwa@hotmail.fr</a> ·
-  <a href="https://linkedin.com/in/carmand237" target="_blank" class="no-underline font-600" style="color:var(--bleu);">LinkedIn</a>
+<footer style="padding:1.25rem 5%; background:white; border-top:1px solid #E2E8F0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.75rem;">
+  <p style="font-size:.78rem; color:#94A3B8;">© 2026 Armand Chuigwa — Curriculum Vitae</p>
+  <div class="flex gap-4">
+    <a href="mailto:armand.chuigwa@hotmail.fr" style="font-size:.78rem; color:var(--teal); text-decoration:none; font-weight:600;">armand.chuigwa@hotmail.fr</a>
+    <a href="https://linkedin.com/in/carmand237" target="_blank" style="font-size:.78rem; color:var(--bleu); text-decoration:none; font-weight:600;">LinkedIn</a>
+    <a href="https://github.com/Carmand237" target="_blank" style="font-size:.78rem; color:var(--bleu); text-decoration:none; font-weight:600;">GitHub</a>
+  </div>
 </footer>
 
-<script>
-  // Si l'iframe ne charge pas le PDF, afficher le fallback
-  const frame = document.getElementById('pdfFrame');
-  const fallback = document.getElementById('pdfFallback');
-
-  frame.addEventListener('error', () => {
-    frame.style.display = 'none';
-    fallback.style.display = 'flex';
-  });
-
-  // Timeout de sécurité : si après 4s rien n'est chargé sur mobile
-  setTimeout(() => {
-    try {
-      if (frame.contentDocument && frame.contentDocument.body &&
-          frame.contentDocument.body.innerHTML === '') {
-        frame.style.display = 'none';
-        fallback.style.display = 'flex';
-      }
-    } catch(e) {
-      // Cross-origin: PDF est chargé, pas de problème
-    }
-  }, 4000);
-</script>
 </body>
 </html>
