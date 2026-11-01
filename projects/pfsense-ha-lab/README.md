@@ -6,6 +6,10 @@
 
 > Laboratoire d'infrastructure : lorsqu'un pare-feu primaire devient indisponible, le pare-feu secondaire peut-il maintenir la passerelle du réseau joignable ?
 
+![Infographie du projet de cluster pfSense en haute disponibilité](visuel-projet.jpg)
+
+Cette infographie présente le laboratoire et ses mécanismes. Pour interpréter les résultats au périmètre réellement vérifié, le test consistait à suspendre la machine virtuelle primaire et à envoyer quatre pings vers la passerelle LAN. La durée de bascule et le maintien des sessions applicatives n'ont pas été mesurés ; le caractère « transparent » de la bascule n'a donc pas été évalué. Voir [les validations](VALIDATION.md).
+
 ## Résultat
 
 J'ai configuré un cluster de deux pare-feux pfSense et validé le cycle complet de bascule et de reprise dans un laboratoire virtualisé. Pendant la suspension contrôlée de la machine virtuelle primaire, le secondaire a repris les quatre adresses virtuelles. Un test de connectivité vers la passerelle interne a reçu **4 réponses sur 4**. À la reprise du primaire, celui-ci est redevenu `MASTER` et le secondaire `BACKUP`, sans état de double maître observé.
@@ -14,9 +18,13 @@ Il s'agit d'un résultat de laboratoire, pas d'une garantie de zéro interruptio
 
 ## Architecture
 
+Schéma technique anonymisé :
+
 ![Architecture anonymisée du cluster pfSense en haute disponibilité](architecture.svg)
 
 Chaque pare-feu possède des interfaces réseau virtuelles distinctes pour le réseau externe, le réseau interne et deux zones [DMZ (Demilitarized Zone, zone démilitarisée)](#dmz), ainsi qu'un réseau dédié à la synchronisation. Les deux nœuds utilisent le même ordre et les mêmes noms d'interfaces.
+
+L'infographie de présentation est disponible dans [`visuel-projet.jpg`](visuel-projet.jpg) ; le schéma SVG ci-dessus détaille l'architecture réseau.
 
 ## Mécanismes configurés
 
