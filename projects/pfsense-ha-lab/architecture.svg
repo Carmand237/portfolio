@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">Architecture anonymisée du cluster pfSense en haute disponibilité</title>
+  <desc id="desc">Topologie de laboratoire anonymisée avec des réseaux externe, interne, deux zones démilitarisées et un réseau dédié à la synchronisation. CARP gère les passerelles virtuelles, pfsync synchronise les états et XML-RPC réplique la configuration du primaire vers le secondaire.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0B1220"/><stop offset="1" stop-color="#14243A"/></linearGradient>
+    <linearGradient id="primary" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2B3F7A"/><stop offset="1" stop-color="#245B86"/></linearGradient>
+    <linearGradient id="teal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2BA89A"/><stop offset="1" stop-color="#167F7E"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="12" stdDeviation="15" flood-color="#020617" flood-opacity=".35"/></filter>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#93A7C4" opacity=".12"/></pattern>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#57D6C3"/></marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#76A7FF"/></marker>
+  </defs>
+  <rect width="1440" height="900" rx="30" fill="url(#bg)"/>
+  <rect width="1440" height="900" rx="30" fill="url(#dots)"/>
+
+  <text x="84" y="90" fill="#6EE7D2" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="3">HAUTE DISPONIBILITÉ · TOPOLOGIE DE LABO</text>
+  <text x="84" y="151" fill="#F8FAFC" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="43" font-weight="800">Cluster pfSense redondant</text>
+  <text x="84" y="190" fill="#A9B8CF" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20">Deux nœuds · quatre zones · lien SYNC dédié</text>
+
+  <!-- network zones -->
+  <g filter="url(#shadow)">
+    <rect x="70" y="285" width="220" height="90" rx="18" fill="#182A42" stroke="#54739A" stroke-width="1.5"/>
+    <rect x="70" y="420" width="220" height="90" rx="18" fill="#182A42" stroke="#54739A" stroke-width="1.5"/>
+    <rect x="70" y="555" width="220" height="90" rx="18" fill="#182A42" stroke="#54739A" stroke-width="1.5"/>
+    <rect x="70" y="690" width="220" height="90" rx="18" fill="#182A42" stroke="#54739A" stroke-width="1.5"/>
+  </g>
+  <text x="102" y="323" fill="#F8FAFC" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="19" font-weight="700">Réseau externe</text>
+  <text x="102" y="350" fill="#9FB0C6" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14">Passerelle virtuelle · CARP</text>
+  <text x="102" y="458" fill="#F8FAFC" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="19" font-weight="700">Réseau interne</text>
+  <text x="102" y="485" fill="#9FB0C6" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14">Passerelle virtuelle · CARP</text>
+  <text x="102" y="593" fill="#F8FAFC" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="19" font-weight="700">DMZ · publique</text>
+  <text x="102" y="620" fill="#9FB0C6" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14">Passerelle virtuelle · CARP</text>
+  <text x="102" y="728" fill="#F8FAFC" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="19" font-weight="700">DMZ · privée</text>
+  <text x="102" y="755" fill="#9FB0C6" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14">Passerelle virtuelle · CARP</text>
+
+  <!-- zone links -->
+  <g fill="none" stroke="#76A7FF" stroke-width="3" opacity=".88">
+    <path d="M290 330H405L470 375"/><path d="M290 465H405L470 435"/>
+    <path d="M290 600H405L470 490"/><path d="M290 735H405L470 545"/>
+  </g>
+  <g fill="#76A7FF"><circle cx="470" cy="375" r="5"/><circle cx="470" cy="435" r="5"/><circle cx="470" cy="490" r="5"/><circle cx="470" cy="545" r="5"/></g>
+
+  <!-- firewall cards -->
+  <g filter="url(#shadow)">
+    <rect x="470" y="300" width="500" height="260" rx="26" fill="#0F1D30" stroke="#426486" stroke-width="2"/>
+    <rect x="505" y="347" width="200" height="140" rx="20" fill="url(#primary)"/>
+    <rect x="735" y="347" width="200" height="140" rx="20" fill="#1D3444" stroke="#43C8B5" stroke-width="2"/>
+  </g>
+  <text x="505" y="329" fill="#A9B8CF" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="1.5">PAIRE DE PARE-FEUX REDONDANTS</text>
+  <text x="605" y="397" text-anchor="middle" fill="#FFFFFF" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="21" font-weight="800">PRIMAIRE</text>
+  <text x="605" y="429" text-anchor="middle" fill="#D5E4F6" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15">Nœud pfSense</text>
+  <rect x="553" y="450" width="104" height="24" rx="12" fill="#DDF7F2" opacity=".16"/>
+  <text x="605" y="467" text-anchor="middle" fill="#B7F6E9" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="800">MASTER</text>
+
+  <text x="835" y="397" text-anchor="middle" fill="#FFFFFF" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="21" font-weight="800">SECONDAIRE</text>
+  <text x="835" y="429" text-anchor="middle" fill="#D3E4E5" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="15">Nœud pfSense</text>
+  <rect x="783" y="450" width="104" height="24" rx="12" fill="#DDF7F2" opacity=".16"/>
+  <text x="835" y="467" text-anchor="middle" fill="#9DEBDB" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12" font-weight="800">BACKUP</text>
+
+  <!-- replication arrows -->
+  <path d="M705 397H735" stroke="#76A7FF" stroke-width="3" marker-end="url(#arrow-blue)"/>
+  <text x="720" y="381" text-anchor="middle" fill="#BFD5FF" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" font-weight="700">XML-RPC</text>
+  <path d="M862 292H882" stroke="#57D6C3" stroke-width="3" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <text x="872" y="316" text-anchor="middle" fill="#9DEBDB" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="11" font-weight="700">pfsync</text>
+
+  <!-- sync network -->
+  <rect x="500" y="625" width="440" height="106" rx="22" fill="#102E35" stroke="#2BA89A" stroke-width="1.5"/>
+  <text x="720" y="666" text-anchor="middle" fill="#7DE1D0" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="19" font-weight="800">RÉSEAU SYNC DÉDIÉ</text>
+  <text x="720" y="698" text-anchor="middle" fill="#B2CDD0" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14">États de connexion · réplication HTTPS limitée</text>
+  <path d="M605 487V625M835 487V625" stroke="#2BA89A" stroke-width="2.5" stroke-dasharray="8 8" opacity=".9"/>
+  <circle cx="605" cy="625" r="5" fill="#57D6C3"/><circle cx="835" cy="625" r="5" fill="#57D6C3"/>
+
+  <!-- verified outcome -->
+  <g filter="url(#shadow)">
+    <rect x="1110" y="375" width="260" height="170" rx="22" fill="#11362F" stroke="#39B99F" stroke-width="1.5"/>
+  </g>
+  <text x="1140" y="415" fill="#9DEBDB" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="13" font-weight="800" letter-spacing="1.5">TEST DE BASCULE</text>
+  <text x="1140" y="477" fill="#FFFFFF" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="48" font-weight="900">4 / 4</text>
+  <text x="1140" y="510" fill="#C4D9D4" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14">réponses passerelle LAN</text>
+  <text x="1140" y="526" fill="#91B2AA" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12">pendant la suspension</text>
+  <text x="1140" y="541" fill="#91B2AA" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="12">de la VM primaire</text>
+
+  <text x="84" y="850" fill="#91A3BA" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="14">Schéma anonymisé · panne simulée par suspension de VM · durée de bascule non mesurée</text>
+</svg>
+
